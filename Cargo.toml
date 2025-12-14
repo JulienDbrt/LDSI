@@ -1,0 +1,43 @@
+[package]
+name = "ldsi"
+version = "0.1.0"
+edition = "2024"
+authors = ["Julien DABERT"]
+description = "Lyapunov-Dabert Stability Index - White Box LLM Benchmark"
+license = "MIT"
+repository = "https://github.com/julien-dabert/ldsi"
+
+[dependencies]
+# Compression (NCD)
+zstd = "0.13"
+
+# Graphes (Topologie)
+petgraph = "0.6"
+
+# CLI
+clap = { version = "4.4", features = ["derive"] }
+
+# Async HTTP (API LLM)
+reqwest = { version = "0.12", features = ["json", "rustls-tls"] }
+tokio = { version = "1.40", features = ["full"] }
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Configuration
+toml = "0.8"
+
+# Date/Time
+chrono = { version = "0.4", features = ["serde"] }
+
+# Regex (Tokenization White Box)
+regex = "1.10"
+
+# Unicode normalization
+unicode-normalization = "0.1"
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
