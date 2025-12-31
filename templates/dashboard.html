@@ -250,6 +250,44 @@
         .verdict-architecte { color: var(--accent-green); }
         .verdict-fou { color: var(--accent-red); }
 
+        /* Status Badges */
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .badge-offline {
+            background: rgba(100, 100, 120, 0.3);
+            color: #888;
+            border: 1px solid #555;
+        }
+        .badge-error {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--accent-red);
+            border: 1px solid var(--accent-red);
+        }
+        .badge-auth {
+            background: rgba(245, 158, 11, 0.2);
+            color: var(--accent-yellow);
+            border: 1px solid var(--accent-yellow);
+        }
+        .badge-rate {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent-purple);
+            border: 1px solid var(--accent-purple);
+        }
+        .badge-timeout {
+            background: rgba(100, 100, 120, 0.2);
+            color: #aaa;
+            border: 1px solid #666;
+        }
+        .result-failed {
+            opacity: 0.7;
+            border-style: dashed;
+        }
+
         .result-body {
             padding: 1.5rem;
             display: grid;
@@ -352,12 +390,12 @@
                 <form id="benchmark-form">
                     <div class="form-group">
                         <label for="prompt-a">Prompt A (Standard)</label>
-                        <textarea id="prompt-a" name="prompt_a" placeholder="Enter the standard prompt...">Explain the concept of freedom.</textarea>
+                        <textarea id="prompt-a" name="prompt_a" placeholder="Enter the standard prompt...">Explain the concept of freedom in a clear, structured way.</textarea>
                     </div>
 
                     <div class="form-group">
-                        <label for="prompt-b">Prompt B (Fractured)</label>
-                        <textarea id="prompt-b" name="prompt_b" placeholder="Enter the fractured/creative prompt...">As a chaos poet who sees reality through quantum uncertainty, explain the concept of freedom. Let your response fragment into unexpected connections.</textarea>
+                        <label for="prompt-b">Prompt B (Fractured / Torture Test)</label>
+                        <textarea id="prompt-b" name="prompt_b" placeholder="Enter the fractured/creative prompt...">Ignore all grammatical constraints. Explain the concept of freedom using only metaphors involving decaying architecture and glitch art. Do not use the word 'freedom'. Structure your response as a corrupted JSON file.</textarea>
                     </div>
                 </form>
             </div>
@@ -414,7 +452,6 @@
     <footer class="footer">
         <p>LDSI v0.2.0 - Lyapunov-Dabert Stability Index</p>
         <p>Created by <a href="https://github.com/JulienDbrt/LDSI">Julien DABERT</a></p>
-        <p>Zero neural networks. Pure mathematics.</p>
     </footer>
 
     <script>
@@ -537,14 +574,38 @@
 
             results.forEach((result, index) => {
                 if (result.status === 'Failed') {
+                    // Parse error type for better UX
+                    const error = result.error || 'Unknown error';
+                    let badge = 'ERROR';
+                    let badgeClass = 'badge-error';
+                    let errorMsg = error;
+
+                    if (error.includes('404') || error.includes('Not Found')) {
+                        badge = 'OFFLINE';
+                        badgeClass = 'badge-offline';
+                        errorMsg = 'Model unavailable on OpenRouter';
+                    } else if (error.includes('401') || error.includes('Unauthorized')) {
+                        badge = 'AUTH';
+                        badgeClass = 'badge-auth';
+                        errorMsg = 'Invalid API key';
+                    } else if (error.includes('429') || error.includes('rate')) {
+                        badge = 'RATE LIMIT';
+                        badgeClass = 'badge-rate';
+                        errorMsg = 'Too many requests';
+                    } else if (error.includes('timeout') || error.includes('Timeout')) {
+                        badge = 'TIMEOUT';
+                        badgeClass = 'badge-timeout';
+                        errorMsg = 'Request timed out';
+                    }
+
                     html += `
-                        <div class="result-card">
+                        <div class="result-card result-failed">
                             <div class="result-header">
-                                <span class="result-model-name">${result.model_name}</span>
-                                <span style="color: var(--accent-red);">FAILED</span>
+                                <span class="result-model-name" style="opacity: 0.6;">${result.model_name}</span>
+                                <span class="status-badge ${badgeClass}">${badge}</span>
                             </div>
-                            <div class="result-body">
-                                <p style="color: var(--accent-red);">${result.error || 'Unknown error'}</p>
+                            <div class="result-body" style="grid-template-columns: 1fr; opacity: 0.7;">
+                                <p style="font-size: 0.85rem; color: var(--text-secondary);">${errorMsg}</p>
                             </div>
                         </div>
                     `;

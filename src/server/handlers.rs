@@ -198,10 +198,17 @@ pub async fn run_benchmark(
             }
         }
 
-        // Mettre à jour avec les résultats
+        // Mettre à jour avec les résultats et sauvegarder
         {
             let mut state = state_clone.write().await;
             state.update_benchmark(&id_clone, BenchmarkStatus::Completed, results);
+
+            // Sauvegarde automatique dans audits/
+            if let Some(session) = state.get_benchmark(&id_clone) {
+                if let Err(e) = session.save_to_audit() {
+                    eprintln!("[AUDIT] Erreur sauvegarde: {}", e);
+                }
+            }
         }
     });
 

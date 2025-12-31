@@ -27,11 +27,12 @@ pub struct LdsiCoefficients {
 
 impl Default for LdsiCoefficients {
     fn default() -> Self {
-        // Coefficients calibrés par défaut
+        // Coefficients calibrés empiriquement (v0.2.0)
+        // NCD = signal principal, Entropie = richesse, Topologie = cohérence
         Self {
-            alpha: 0.4, // NCD: 40%
-            beta: 0.35, // Entropie: 35%
-            gamma: 0.25, // Topologie: 25%
+            alpha: 0.50, // NCD: 50% - Le patron
+            beta: 0.30,  // Entropie: 30% - Garde-fou anti-bruit
+            gamma: 0.20, // Topologie: 20% - Juge de paix structurel
         }
     }
 }

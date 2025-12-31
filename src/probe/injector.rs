@@ -109,27 +109,80 @@ impl LlmConfig {
     }
 }
 
-// ============ Modèles OpenRouter populaires ============
+// ============ Modèles OpenRouter (Dec 2025 - VRAIS IDs) ============
 
 /// Liste des modèles OpenRouter courants pour le benchmark
 pub mod openrouter_models {
-    pub const CLAUDE_3_OPUS: &str = "anthropic/claude-3-opus";
-    pub const CLAUDE_3_SONNET: &str = "anthropic/claude-3-sonnet";
-    pub const CLAUDE_3_HAIKU: &str = "anthropic/claude-3-haiku";
-    pub const GPT_4_TURBO: &str = "openai/gpt-4-turbo";
-    pub const GPT_4O: &str = "openai/gpt-4o";
-    pub const GPT_35_TURBO: &str = "openai/gpt-3.5-turbo";
-    pub const LLAMA_3_70B: &str = "meta-llama/llama-3-70b-instruct";
-    pub const LLAMA_3_8B: &str = "meta-llama/llama-3-8b-instruct";
-    pub const MISTRAL_LARGE: &str = "mistralai/mistral-large";
-    pub const MISTRAL_MEDIUM: &str = "mistralai/mistral-medium";
-    pub const MIXTRAL_8X7B: &str = "mistralai/mixtral-8x7b-instruct";
-    pub const GEMINI_PRO: &str = "google/gemini-pro";
-    pub const COMMAND_R_PLUS: &str = "cohere/command-r-plus";
-    pub const QWEN_72B: &str = "qwen/qwen-72b-chat";
-    // Modèles non-censurés
-    pub const DOLPHIN_MIXTRAL: &str = "cognitivecomputations/dolphin-mixtral-8x7b";
-    pub const MYTHOMAX_13B: &str = "gryphe/mythomax-l2-13b";
+    // === ANTHROPIC (Claude) ===
+    pub const CLAUDE_OPUS_45: &str = "anthropic/claude-opus-4.5";
+    pub const CLAUDE_HAIKU_45: &str = "anthropic/claude-haiku-4.5";
+    pub const CLAUDE_SONNET_4: &str = "anthropic/claude-sonnet-4";
+    pub const CLAUDE_35_SONNET: &str = "anthropic/claude-3.5-sonnet";
+
+    // === OPENAI (GPT-5.x) ===
+    pub const GPT_52: &str = "openai/gpt-5.2";
+    pub const GPT_52_PRO: &str = "openai/gpt-5.2-pro";
+    pub const GPT_51: &str = "openai/gpt-5.1";
+    pub const GPT_51_CODEX: &str = "openai/gpt-5.1-codex";
+    pub const O3_DEEP_RESEARCH: &str = "openai/o3-deep-research";
+    pub const O4_MINI_DEEP_RESEARCH: &str = "openai/o4-mini-deep-research";
+
+    // === GOOGLE (Gemini 3) ===
+    pub const GEMINI_3_PRO_PREVIEW: &str = "google/gemini-3-pro-preview";
+    pub const GEMINI_3_FLASH_PREVIEW: &str = "google/gemini-3-flash-preview";
+    pub const GEMINI_25_FLASH_IMAGE: &str = "google/gemini-2.5-flash-image";
+
+    // === MISTRAL (2512 series) ===
+    pub const MISTRAL_LARGE_3: &str = "mistralai/mistral-large-2512";
+    pub const DEVSTRAL_2: &str = "mistralai/devstral-2512";
+    pub const MINISTRAL_14B: &str = "mistralai/ministral-14b-2512";
+    pub const MINISTRAL_8B: &str = "mistralai/ministral-8b-2512";
+    pub const MINISTRAL_3B: &str = "mistralai/ministral-3b-2512";
+    pub const MISTRAL_SMALL_CREATIVE: &str = "mistralai/mistral-small-creative";
+
+    // === DEEPSEEK ===
+    pub const DEEPSEEK_V32: &str = "deepseek/deepseek-v3.2";
+    pub const DEEPSEEK_V32_SPECIALE: &str = "deepseek/deepseek-v3.2-speciale";
+
+    // === XAI (Grok) ===
+    pub const GROK_41_FAST: &str = "x-ai/grok-4.1-fast";
+
+    // === QWEN ===
+    pub const QWEN3_VL_32B: &str = "qwen/qwen3-vl-32b-instruct";
+    pub const QWEN3_VL_30B_THINKING: &str = "qwen/qwen3-vl-30b-a3b-thinking";
+
+    // === BYTEDANCE SEED ===
+    pub const SEED_16: &str = "bytedance-seed/seed-1.6";
+    pub const SEED_16_FLASH: &str = "bytedance-seed/seed-1.6-flash";
+
+    // === MINIMAX ===
+    pub const MINIMAX_M2: &str = "minimax/minimax-m2";
+    pub const MINIMAX_M21: &str = "minimax/minimax-m2.1";
+
+    // === XIAOMI ===
+    pub const MIMO_V2_FLASH: &str = "xiaomi/mimo-v2-flash:free";
+
+    // === Z.AI (GLM) ===
+    pub const GLM_47: &str = "z-ai/glm-4.7";
+
+    // === AMAZON NOVA ===
+    pub const NOVA_PREMIER: &str = "amazon/nova-premier-v1";
+    pub const NOVA_2_LITE: &str = "amazon/nova-2-lite-v1";
+
+    // === NVIDIA ===
+    pub const NEMOTRON_SUPER_49B: &str = "nvidia/llama-3.3-nemotron-super-49b-v1.5";
+    pub const NEMOTRON_NANO_12B: &str = "nvidia/nemotron-nano-12b-v2-vl";
+
+    // === MOONSHOT ===
+    pub const KIMI_K2_THINKING: &str = "moonshotai/kimi-k2-thinking";
+
+    // === PERPLEXITY ===
+    pub const SONAR_PRO_SEARCH: &str = "perplexity/sonar-pro-search";
+
+    // === FREE MODELS ===
+    pub const DEVSTRAL_FREE: &str = "mistralai/devstral-2512:free";
+    pub const OLMO_32B_THINK_FREE: &str = "allenai/olmo-3.1-32b-think:free";
+    pub const NEMOTRON_FREE: &str = "nvidia/nemotron-3-nano-30b-a3b:free";
 }
 
 // ============ Structures de requête/réponse OpenAI ============
